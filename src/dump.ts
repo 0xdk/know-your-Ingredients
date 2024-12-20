@@ -6,3 +6,9 @@
 // // const extractedData = extractInformation(data.Record.Section, targetNames);
 // console.log(extractData);
 // res.send('might work');
+
+// Pharmacology
+// https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/338/JSON/?response_type=display&heading=Pharmacology
+
+// Food Additives
+// https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/338/JSON/?response_type=display&heading=Food%20Additives

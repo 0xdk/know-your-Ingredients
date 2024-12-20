@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
-async function getIdandMolInfo(elementName: string): Promise<Number> {
+async function getIdAndMolInfo(elementName: string): Promise<Number> {
   const getBasicInfo = axios.create({
     baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug//compound/name/`,
   });
@@ -12,4 +12,4 @@ async function getIdandMolInfo(elementName: string): Promise<Number> {
   console.log(basicInfo.data.PropertyTable.Properties[0].CID);
   return basicInfo.data.PropertyTable.Properties[0].CID;
 }
-export default getIdandMolInfo;
+export default getIdAndMolInfo;

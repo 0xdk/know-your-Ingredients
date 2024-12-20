@@ -3,6 +3,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import getInfoRoute from './routes/indexRoute';
 const app = express();
+app.use(express.json());
 
 const port: number = 8080;
 

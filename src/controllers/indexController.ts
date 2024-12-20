@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import extractInformation from '../service/extractHazardnPictogram';
-import getIdAndMolInfo from '../service/getIdandMol';
+import getIdAndMolInfo from '../service/getIdAndMol';
 import getHazardAndPictogramData from '../service/getHazardnPictogram';
 import { ExtractedData } from '../service/extractHazardnPictogram';
 
-async function handleApiRequest(req: Request, res: Response): Promise<void> {
+async function handleApiRequest(req: Request, res: Response) {
   try {
-    // const userInput: string = req.body.input; // Ensure userInput is a string
-    const userInput: string = 'Octocrylene'; // Ensure userInput is a string
+    const userInput: string = req.body.input;
+    // const userInput: string = 'Octocrylene';
     if (!userInput) {
       res.status(400).json({ error: 'Input is required' });
       return;
