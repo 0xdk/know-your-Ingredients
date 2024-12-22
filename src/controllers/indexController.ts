@@ -7,18 +7,18 @@ import { ExtractedData } from '../service/extractHazardnPictogram';
 async function handleApiRequest(req: Request, res: Response) {
   try {
     const userInput: string = req.body.input;
-    // const userInput: string = 'Octocrylene';
     if (!userInput) {
       res.status(400).json({ error: 'Input is required' });
       return;
     }
 
-    const id: Number = await getIdAndMolInfo(userInput); // First API call
+    const id: Number = await getIdAndMolInfo(userInput);
     const hazardAndPictogramData = await getHazardAndPictogramData(id);
+
     const extractData: ExtractedData = extractInformation(
-      hazardAndPictogramData.data.Record.Section
+      hazardAndPictogramData
     );
-    console.log(extractData);
+
     res.json(extractData);
   } catch (error: any) {
     console.error('Error handling API request:', error.message);
@@ -26,4 +26,4 @@ async function handleApiRequest(req: Request, res: Response) {
   }
 }
 
-export default handleApiRequest;
+export default { handleApiRequest };

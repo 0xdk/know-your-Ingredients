@@ -1,5 +1,6 @@
 node_modules/
 dist/
 .env
-dump.ts
+dump
 package-lock.json
+extractData1

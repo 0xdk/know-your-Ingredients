@@ -1,16 +1,30 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 async function getHazardAndPictogramData(id: Number) {
-  const GHSinfo = axios.create({
-    // https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/338/JSON/?response_type=display&heading=GHS+Classification
-    baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
-  });
+  try {
+    const GHSinfo = axios.create({
+      // https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/338/JSON/?response_type=display&heading=GHS+Classification
+      baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
+    });
 
-  const searchResponse: AxiosResponse = await GHSinfo.get(
-    `${id}/JSON/?response_type=display&heading=GHS+Classification`
-  );
+    const searchResponse: AxiosResponse = await GHSinfo.get(
+      `${id}/JSON/?response_type=display&heading=GHS+Classification`
+    );
 
-  return searchResponse;
+    if (!searchResponse.data.Record) {
+      throw new Error('No Hazard or pictogram data in the the response ');
+    }
+    console.log(searchResponse.data.Record.Section);
+    return searchResponse.data.Record.Section;
+  } catch (error: any) {
+    // axios error
+    if (axios.isAxiosError(error)) {
+      console.error('API Error:', error.response?.data || error.message);
+      throw new Error(`PubChem API Error: ${error.message}`);
+    }
+    console.error('Unknown Error:', error.message);
+    throw new Error('An unknown error occurred while fetching data');
+  }
 }
 
 export default getHazardAndPictogramData;

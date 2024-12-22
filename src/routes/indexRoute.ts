@@ -1,8 +1,7 @@
 import { Router } from 'express';
-import handleApiRequest from '../controllers/indexController';
 import indexController from '../controllers/indexController';
 
 export const getInfoRoute = Router();
-getInfoRoute.get('/get-info', handleApiRequest);
+getInfoRoute.get('/get-info', indexController.handleApiRequest);
 
 export default getInfoRoute;

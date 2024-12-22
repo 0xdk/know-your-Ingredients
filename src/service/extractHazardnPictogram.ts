@@ -44,7 +44,7 @@ function extractInformation(sections: Section[]): ExtractedData {
   };
 
   sections.forEach((section) => {
-    // Check if the section contains an "Information" key
+    // Checks if the section contains an "Information" key
     if (section.Information) {
       section.Information.forEach((info) => {
         // Extract "GHS Hazard Statements"
@@ -87,9 +87,5 @@ function extractInformation(sections: Section[]): ExtractedData {
 
   return extractedData;
 }
-
-// Example Usage (Ensure the `data` object is typed or imported as needed)
-// const targetNames = ['GHS Hazard Statements', 'Pictogram(s)'];
-// const extractedData = extractInformation(data.Record.Section);
 
 export default extractInformation;

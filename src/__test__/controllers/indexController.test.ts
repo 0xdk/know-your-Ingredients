@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import handleApiRequest from '../../controllers/indexController';
+import indexController from '../../controllers/indexController';
 import * as getIdAndMol from '../../service/getIdAndMol';
 import * as getHazardAndPictogram from '../../service/getHazardnPictogram';
 import * as extractInfo from '../../service/extractHazardnPictogram';
@@ -29,9 +29,9 @@ describe('handleApiRequest', () => {
   });
 
   it('should return 400 if userInput is missing', async () => {
-    req.body = {}; // No input provided
+    req.body = {};
 
-    await handleApiRequest(req as Request, res as Response);
+    await indexController.handleApiRequest(req as Request, res as Response);
 
     expect(statusMock).toHaveBeenCalledWith(400);
     expect(jsonMock).toHaveBeenCalledWith({ error: 'Input is required' });
@@ -53,18 +53,19 @@ describe('handleApiRequest', () => {
       pictograms: [],
     };
 
-    // Mock service implementations
     jest.spyOn(getIdAndMol, 'default').mockResolvedValue(mockId);
     jest
       .spyOn(getHazardAndPictogram, 'default')
       .mockResolvedValue(mockHazardData as AxiosResponse);
     jest.spyOn(extractInfo, 'default').mockReturnValue(mockExtractedData);
 
-    await handleApiRequest(req as Request, res as Response);
+    await indexController.handleApiRequest(req as Request, res as Response);
 
     expect(getIdAndMol.default).toHaveBeenCalledWith(req.body.input);
     expect(getHazardAndPictogram.default).toHaveBeenCalledWith(mockId);
-    expect(extractInfo.default).toHaveBeenCalledWith('mockSection');
+    expect(extractInfo.default).toHaveBeenCalledWith({
+      data: { Record: { Section: 'mockSection' } },
+    });
     expect(res.json).toHaveBeenCalledWith(mockExtractedData);
   });
 
@@ -75,7 +76,7 @@ describe('handleApiRequest', () => {
       .spyOn(getIdAndMol, 'default')
       .mockRejectedValue(new Error('API Error'));
 
-    await handleApiRequest(req as Request, res as Response);
+    await indexController.handleApiRequest(req as Request, res as Response);
 
     expect(statusMock).toHaveBeenCalledWith(500);
     expect(jsonMock).toHaveBeenCalledWith({
