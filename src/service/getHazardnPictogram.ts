@@ -14,7 +14,7 @@ async function getHazardAndPictogramData(id: Number) {
     if (!searchResponse.data.Record) {
       throw new Error('No Hazard or pictogram data in the the response ');
     }
-    console.log(searchResponse.data.Record.Section);
+    // console.log(searchResponse.data.Record.Section);
     return searchResponse.data.Record.Section;
   } catch (error: any) {
     // axios error

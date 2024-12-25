@@ -40,7 +40,7 @@ describe('handleApiRequest', () => {
   it('should return extracted data on valid input', async () => {
     req.body = { input: 'Salicylic Acid' };
 
-    const mockId = 12345;
+    const mockId: Number = 54670067;
     const mockHazardData = {
       data: {
         Record: {
@@ -53,14 +53,17 @@ describe('handleApiRequest', () => {
       pictograms: [],
     };
 
+    // Mocking dependencies
     jest.spyOn(getIdAndMol, 'default').mockResolvedValue(mockId);
     jest
       .spyOn(getHazardAndPictogram, 'default')
       .mockResolvedValue(mockHazardData as AxiosResponse);
     jest.spyOn(extractInfo, 'default').mockReturnValue(mockExtractedData);
 
+    // Call the function
     await indexController.handleApiRequest(req as Request, res as Response);
 
+    // Assertions
     expect(getIdAndMol.default).toHaveBeenCalledWith(req.body.input);
     expect(getHazardAndPictogram.default).toHaveBeenCalledWith(mockId);
     expect(extractInfo.default).toHaveBeenCalledWith({

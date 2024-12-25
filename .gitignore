@@ -4,3 +4,5 @@ dist/
 dump
 package-lock.json
 extractData1
+test_data
+test_data2
