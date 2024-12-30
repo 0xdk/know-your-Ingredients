@@ -1,8 +1,8 @@
 node_modules/
 dist/
-.env
-dump
+dump.ts
 package-lock.json
-extractData1
-test_data
-test_data2
+extractData1.js
+test_data.js
+test_data2.js
+.env
