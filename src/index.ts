@@ -5,7 +5,7 @@ import getInfoRoute from './routes/indexRoute';
 const app = express();
 app.use(express.json());
 
-const port: number = 8080;
+const port: number = 3000;
 
 app.get('/', (req: Request, res: Response) => {
   res.send('go to /get-info');

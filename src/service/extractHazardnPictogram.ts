@@ -48,12 +48,14 @@ function extractInformation(sections: Section[]): ExtractedData {
     if (section.Information) {
       section.Information.forEach((info) => {
         // Extract "GHS Hazard Statements"
-        if (
-          info.Name === 'GHS Hazard Statements' &&
-          info.Value?.StringWithMarkup
-        ) {
+        if (info.Name === 'GHS Hazard Statements' && info.Value?.StringWithMarkup) {
           info.Value.StringWithMarkup.forEach((markup) => {
-            if (markup.String) {
+            if (
+              markup.String &&
+              // some() iterates through the extractedData.hazardStatements array to check duplicates,
+              // worst-case complexity is O(m * n)(number of loops * length of hazardStatements[])
+              !extractedData.hazardStatements.some((statement) => statement === markup.String)
+            ) {
               extractedData.hazardStatements.push(markup.String);
             }
           });
@@ -64,11 +66,14 @@ function extractInformation(sections: Section[]): ExtractedData {
           info.Value.StringWithMarkup.forEach((markup) => {
             if (markup.Markup) {
               markup.Markup.forEach((entry) => {
-                if (entry.URL) {
-                  extractedData.pictograms.push({
-                    URL: entry.URL,
-                    Extra: entry.Extra,
-                  });
+                // checks if Pictogram is already stored, But complexity is O(n) or maybe O(m * n)
+                if (!extractedData.pictograms.some((p) => p.Extra === entry.Extra)) {
+                  if (entry.URL) {
+                    extractedData.pictograms.push({
+                      URL: entry.URL,
+                      Extra: entry.Extra,
+                    });
+                  }
                 }
               });
             }

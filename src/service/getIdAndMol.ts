@@ -1,6 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 
-async function getIdAndMolInfo(elementName: string): Promise<Number> {
+export interface IDMolResponse {
+  Properties: {
+    CID: number;
+    MolecularFormula: string;
+    MolecularWeight: number;
+    CanonicalSMILES: string;
+  }[];
+}
+
+async function getIdAndMolInfo(elementName: string): Promise<IDMolResponse> {
   try {
     const getCID = axios.create({
       baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug//compound/name/`,
@@ -9,7 +18,9 @@ async function getIdAndMolInfo(elementName: string): Promise<Number> {
     const response: AxiosResponse = await getCID.get(
       `${elementName}/property/MolecularFormula,MolecularWeight,CanonicalSMILES/JSON`
     );
-    return response.data.PropertyTable.Properties[0].CID;
+    // console.log(response.data.PropertyTable.Properties[0]);
+    return response.data.PropertyTable;
+    // return response.data;
   } catch (error: any) {
     // axios error
     if (axios.isAxiosError(error)) {

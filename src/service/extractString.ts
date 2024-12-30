@@ -30,8 +30,9 @@ export interface PubChemResponse {
   };
 }
 
-export interface extractedPharmacology {
-  PharmacologyString: string[];
+export interface extractedString {
+  headings: string;
+  extractedString: string[];
 }
 
 /**
@@ -40,20 +41,23 @@ export interface extractedPharmacology {
  * @returns extracted data of Pharmacology
  */
 
-function extractStringsFromResponse(
-  response: PubChemResponse
-): extractedPharmacology {
-  const strings: extractedPharmacology = {
-    PharmacologyString: [],
+function extractStringsFromResponse(response: PubChemResponse): extractedString {
+  const strings: extractedString = {
+    headings: '',
+    extractedString: [],
   };
 
   function traverseSection(section: Section) {
     if (section.Information) {
+      if (section.TOCHeading) {
+        // strings.headings.push(section.TOCHeading.trim());
+        strings.headings = section.TOCHeading.trim();
+      }
       section.Information.forEach((info) => {
         if (info.Value?.StringWithMarkup) {
           info.Value.StringWithMarkup.forEach((markup) => {
             if (markup.String) {
-              strings.PharmacologyString.push(markup.String.trim());
+              strings.extractedString.push(markup.String.trim());
             }
           });
         }

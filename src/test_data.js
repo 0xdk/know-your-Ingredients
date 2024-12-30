@@ -1,136 +1,94 @@
-/*
-
-{
-  "Record": {
-    "RecordType": "CID",
-    "RecordNumber": 54670067,
-    "RecordTitle": "Ascorbic Acid",
-    "Section": [
-      {
-        "TOCHeading": "Pharmacology and Biochemistry",
-        "Description": "Pharmacology and biochemistry information related to this compound, including the pharmacodynamics, pharmacokinetics, metabolism, mechanism of action, biological half-life, biochemical reactions, and many others.",
-        "Section": [
-          {
-            "TOCHeading": "Pharmacodynamics",
-            "Description": "Pharmacodynamic information for this compound as a drug (i.e., what does this drug do to the body).  Pharmacodynamics is the study of the biochemical, physiologic, and molecular effects of drugs on the body.",
-            "URL": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
-            "Information": [
-              {
-                "ReferenceNumber": 24,
-                "Value": {
-                  "StringWithMarkup": [
-                    {
-                      "String": "Ascorbic Acid (vitamin C) is a water-soluble vitamin indicated for the prevention and treatment of scurvy, as ascorbic acid deficiency results in scurvy. Collagenous structures are primarily affected, and lesions develop in bones and blood vessels. Administration of ascorbic acid completely reverses the symptoms of ascorbic acid deficiency.",
-                      "Markup": [
-                        {
-                          "Start": 0,
-                          "Length": 13,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Ascorbic%20Acid",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "CID-54670067"
-                        },
-                        {
-                          "Start": 15,
-                          "Length": 9,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/vitamin%20C",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "CID-54670067"
-                        },
-                        {
-                          "Start": 31,
-                          "Length": 5,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/water",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "CID-962"
-                        },
-                        {
-                          "Start": 110,
-                          "Length": 13,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/ascorbic%20acid",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "CID-54670067"
-                        },
-                        {
-                          "Start": 267,
-                          "Length": 13,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/ascorbic%20acid",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "CID-54670067"
-                        },
-                        {
-                          "Start": 317,
-                          "Length": 13,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/ascorbic%20acid",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "CID-54670067"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              },
-              {
-                "ReferenceNumber": 25,
-                "Value": {
-                  "StringWithMarkup": [
-                    {
-                      "String": "The major activity of supplemental iron is in the prevention and treatment of iron deficiency anemia. Iron has putative immune-enhancing, anticarcinogenic and cognition-enhancing activities.",
-                      "Markup": [
-                        {
-                          "Start": 35,
-                          "Length": 4,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Iron",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "Element-Iron"
-                        },
-                        {
-                          "Start": 78,
-                          "Length": 4,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Iron",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "Element-Iron"
-                        },
-                        {
-                          "Start": 102,
-                          "Length": 4,
-                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Iron",
-                          "Type": "PubChem Internal Link",
-                          "Extra": "Element-Iron"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      }
+let data = {
+  'ID And Mol': [
+    {
+      CID: 338,
+      MolecularFormula: 'C7H6O3',
+      MolecularWeight: '138.12',
+      CanonicalSMILES: 'C1=CC=C(C(=C1)C(=O)O)O',
+    },
+  ],
+  Pharmacology: {
+    headings: 'Pharmacodynamics',
+    extractedString: [
+      'Salicylic acid treats acne by causing skin cells to slough off more readily, preventing pores from clogging up. This effect on skin cells also makes salicylic acid an active ingredient in several shampoos meant to treat dandruff. Use of straight salicylic solution may cause hyperpigmentation on unpretreated skin for those with darker skin types (Fitzpatrick phototypes IV, V, VI), as well as with the lack of use of a broad spectrum sunblock. Subsalicylate in combination with bismuth form the popular stomach relief aid known commonly as Pepto-Bismol. When combined the two key ingredients help control diarrhea, nausea, heartburn, and even gas. It is also very mildly anti-biotic.',
     ],
-    "Reference": [
+  },
+  'Hazards Summary': {
+    headings: 'Hazards Summary',
+    extractedString: [
+      'An eye irritant; [CAMEO] Symptoms of salicylism after an acute overdose include ringing in the ears, confusion, hyperventilation, vomiting, and in severe cases, seizure and coma; Topical salicylic acid is keratolytic in concentrations greater than 3%; [HSDB] See Acetylsalicylic acid.',
+    ],
+  },
+  'Effects of Long Term Exposure': {
+    headings: 'Effects of Long Term Exposure',
+    extractedString: [
+      'Repeated or prolonged contact with skin may cause dermatitis. Animal tests show that this substance possibly causes toxicity to human reproduction or development.',
+    ],
+  },
+  'Human Toxicity Excerpts': {
+    headings: 'Human Toxicity Excerpts',
+    extractedString: [
+      "/HUMAN EXPOSURE STUDIES/ The irritation potential of a facial cosmetic cream containing 1.5% salicylic acid in a 21 day cumulative irritation patch test. Twenty-seven subjects completed the study. Distilled water and 0.2% (w/v) SLS served as negative and positive controls, respectively. Occlusive patches containing 0.2 g of the test material were applied to the infrascapular area of the back of each subject for 24 (Monday to Thursday) or 72 hr (Friday); the test sites were scored upon patch removal and new patches were applied to the same site. This procedure was repeated for 21 days. A total score was calculated by summing each individual's scores on each of the 21 days. Normalized scores were calculated by summing the scores of all subjects, dividing by the total number of readings for all subjects, and multiplying by 21 (the number of readings) and by 10 (to normalize to 10 subjects). A facial cosmetic cream containing 1.5% salicylic acid, with a total score of 415.0 and a normalized score of 147.5, was classified (using the normalized score) as slightly irritating.",
+      '/SIGNS AND SYMPTOMS/ Signs and symptoms of salicylic acid poisoning include nausea, vomiting, tinnitus, dizziness, headache, dullness, confusion, sweating, rapid pulse and breathing, possible skin eruptions, lethargy, hyperventilation, tachycardia, and fever. Severe poisoning can result in delirium, hallucinations, convulsions or coma, and respiratory or cardiovascular collapse.',
+      '/CASE REPORTS/ ... A case of severe salicylate intoxication /is described/ in a patient with psoriasis who treated himself with 40 percent salicylic ointment applied to approximately 41 percent of his body surface. Nineteen hours after the application of salicylic acid, his blood level of the agent was 6.04 mmol/liter. The patient underwent hemodialysis and was discharged after fourteen days in good general health.',
+      '/CASE REPORTS/ In a 7-year-old boy, ichthyosis vulgaris was treated with a 10% ointment for application over a large area of the body surface. In this way, the child received 400 g salicylic acid (0.6 g/kg body weight per day) percutaneously over a period of 4 weeks. The patient was referred to hospital by the family doctor: he was in a deep somnolent state, apparently caused by hyperventilation following wheezing, vomiting, tinnitus and vertigo. Salicylate intoxication was suspected because of metabolic acidosis, an anion gap and respiratory overcompensation. The diagnosis was confirmed by a serum salicylate level of 985 ug/mL (therapeutic level 150-300 ug/mL). Following forced diuresis and alkalization with sodium bicarbonate, hemodialysis was unnecessary. As the salicylate level declined to values within the therapeutic range, the patient started to recover consciousness, waking on the 4th day. By day 6 there were still obvious neurological deficiencies. Fecal incontinence, bilateral ptosis and intermittent diverging strabismus on the right persisted for some weeks. It was 6 months before complete neurological resolution was achieved.',
+      'For more Human Toxicity Excerpts (Complete) data for SALICYLIC ACID (10 total), please visit the HSDB record page.',
+    ],
+  },
+  'Toxicity Summary': {
+    headings: 'Toxicity Summary',
+    extractedString: [
+      "IDENTIFICATION: Salicylic acid is an analgesic and antipyretic medication.  Salicylic acid in the form of esters was found in several plants, notably in wintergreen leaves and the bark of sweet birch. It was made synthetically by heating sodium phenolyate with carbon dioxide under pressure and microbial oxidation of naphthalene.  Salicylic acid is colorless or white crystals.  Colourless acicular crystals or a white crystalline powder. The synthetic form is white but if prepared from natural methyl salicylate, it may have a slightly yellow or pink tint.  Salicylic acid is a white crystalline powder with a sweetish acrid taste. If prepared from natural methyl salicylate, it may have a faint mint like odor. It is available in forms of ointments, cream, gel, transdermal patches, liquids and plaster.  Salicylic acid is soluble in water, boiling water, alcohol, ether and chloroform.  Salicylic acid has keratinolytic properties and is applied topically in the treatment of hyperkeratotic and scaling conditions such as dandruff, ichthyosis and psoriasis. Initially a concentration of 2% is used increasing to about 6% if necessary.  It is often used in conjunction with many other agents, such as benzoic acid, coal tar, resorcinol and sulfur. Salicylic acid is also used in the form of paint and in the form of collodion basis (10 to 17%) or as a plaster (20 to 50%) to destroy warts and corns. It also possesses fungicidal properties and is used topically in the treatment of fungal skin infections such as tinea.  HUMAN EXPOSURE: Main risks and target organs: The toxic effects of salicylic acid and salicylates are complex. Main risks with oral therapeutic doses are mostly gastrointestinal irritation. Hepatic encephalopathy (Reye's Syndrome) has been reported in children who had taken aspirin for treatment of viral infections such as influenza. Toxic doses of salicylate stimulate the respiratory centre leading to respiratory alkalosis. In severe intoxication, metabolic acidosis, water and electrolyte loss occur as the principle secondary consequences. Central nervous system toxicity includes, tinnitus, hearing loss and in very severe cases particularly in children convulsions and coma. Target organs are central nervous system, lungs, kidneys and liver.  Summary of clinical effects: Following oral ingestion of salicylic acid and or any other salicylate, nausea, vomiting, epigastric discomfort, tinnitus, loss of hearing, sweating, flushing (vasodilatation) tachypnea and hyperpnea are commonly observed.  Local gastrointestinal (GI) irritation of SA is more marked than ASA (acetylsalicylic acid).  In severe intoxication irritability, tremor, blurred vision, mental confusion, delirium, stupor, coma, fever, cerebral edema and cardiorespiratory arrest may occur. Central nervous system toxicity and gastrointestinal haemorrhage are more common after chronic (therapeutic) intoxication. A marked alteration of acid base balance from respiratory alkalosis to metabolic acidosis may be observed. In severe salicylate intoxication in adults, non cardiogenic pulmonary edema, nonfocal neurological abnormalities, unexplained ketosis and a prolonged prothrombin time can occur. Skin eruption and subconjunctival hemorrhage may be seen but marked thrombocytopenia is rare. Methyl salicylate poisoning has the odor of the drug which can be detected on the breath and in the urine and vomit. Central nervous system stimulation, intense hyperpnea and hyperpyrexia are prominent features.  Diagnosis: Symptoms and signs of oral ingestion of salicylic acid overdose usually commence by nausea, vomiting and epigastric discomfort. However, in mild salicylism particularly with therapeutic intoxication, tinnitus, loss of hearing, dizziness, sweating, and flushing are more common. Severe salicylate poisoning is associated with marked respiratory and nervous system toxicity. Hyperventilation and respiratory alkalosis are more common in adults, whereas hypoventilation and metabolic acidosis are more commonly observed in children. A rapid screening test for the presence of salicylate in the urine may indicate the use of the drug.  Estimation of salicylate concentration in plasma/serum can confirm the diagnosis and reveals the severity of intoxication.  Due to the severe gastric irritation which salicylic acid causes, it is no longer used orally. However, when used topically it may cause an allergic contact rash in some people. If applied to large areas of skin, it may be absorbed into the blood stream and induce salicylism.  Routes of entry: Oral: Salicylic acid causes gastric irritation and thus, there is no oral pharmaceutical available. However, Chinese medicated oil which contains 67% methyl salicylate has been taken orally. Dermal: Salicylic acid is readily absorbed from the skin and may induce toxicity (salicylism). Kinetics: Absorption by route of exposure: Salicylic acid is readily absorbed from the skin and may cause toxicity, particularly in children and the newborn.  Herbal products such as the chinese medicated oil which contains methyl salicylate is also absorbed through gastrointestinal mucosa following ingestion.  Distribution by route of exposure: About 50 to 80% of salicylate in the blood is bound to plasma proteins, while the rest remains in the active ionized state; protein binding is concentration dependent. Saturation of binding sites lead to more free salicylate and increased toxicity. The apparent volume of distribution is 0.1 to 0.2 L/kg. Acidosis increases the volume of distribution because of the enhancement of tissue penetration of salicylate.  Biological half-life by route of exposure: The plasma salicylate half-life following therapeutic doses is 2 to 4.5 hours, but in over-dosage, increases to 18 to 36 hours. When the metabolic pathway is saturated (conjugation with glycin), zero order kinetics apply and thus the elimination half-life cannot be derived correctly.  Metabolism: At low dosage, approximately 80% of salicylic acid is metabolized in the liver. Conjugation with glycine, forms salicyluric acid and when conjugated with glucuronic acid, acyl and phenolic glucuronide are formed. Small amounts of salicylic acid are also hydroxylated to gentisic acid.  With large doses, the kinetics switch from first order to zero order (Michaelis-Menten) kinetics.  Elimination and excretion: Salicylates are excreted mainly by the kidney as salicylic acid, salicyluric acid, salicylic glucuronides and gentisic acid. The proportion excreted of each metabolite, depends upon urinary pH. With urinary alkalinisation, salicylic acid excretion is enhanced. Mode of action: Toxicodynamics: Marked hyperventilation occurs as a result of direct stimulation of the respiratory centre. Indirect stimulation of respiration is caused by an increased production of CO2 as a result of salicylate-induced uncoupling of oxidative phosphorylation. Respiratory alkalosis develops as a result of the direct and indirect stimulation of the respiratory centre. In an attempt to compensate, bicarbonate accompanied by sodium, potassium and water, is excreted in the urine. Dehydration and hypokalemia result, but more importantly, the loss of bicarbonate diminishes the buffering capacity of the body and allows the development of a metabolic acidosis. The pyretic effect of toxic doses of salicylate is a direct result of the uncoupling of oxidative phosphorylation. High doses of salicylate have additional toxic effects on the central nervous system consisting of stimulation(including convulsions) followed by depression, confusion, dizziness, asterixis, delirium, psychosis, stupor and coma. Very high doses have depressive effect on the medulla and may cause central respiratory paralysis as well as sudden circulatory collapse secondary to vasomotor depression. The loss of buffering capacity and the effects of salicylate on carbohydrate, lipid and protein metabolism lead to the development of a metabolic acidosis or, more commonly in practice, a mixed acid base disturbance.  Both hypo-and hyperglycemia may occur in salicylate poisoning.  The former most probably due to an increased tissue demand for glucose oxidation due to the uncoupling of oxidative phosphorylation. Neuroglycopenia can occur in the presence of normal blood glucose concentrations. If hepatic glycogen stores are adequate, catecholamines production stimulates glycogenolysis leading to hyperglycemia which can persist for several days.  Salicylate intoxication is often accompanied by hypothrombinemia due to a warfarin like action of salicylate on the vitamin K1 epoxide cycle, which rarely causes clinical problems. Pharmacodynamics: Salicylic acid alleviates pain, lowers an elevated body temperature and inflammation by inhibiting the synthesis of prostaglandins that occur in inflamed tissues. Salicylate inhibits the conversion of arachidonic acid to the unstable endoperoxide intermediate PG G2, which is catalyzed by the enzyme cyclo oxygenase. Platelets are especially susceptible to this action as they are incapable of regenerating the enzyme, presumably they have little or no capacity for protein biosynthesis.  Cyclooxygenase(COX) is present in two main isoforms.  COX-1 is the isoform of the enzyme and is present under normal physiological conditions. COX-2 is the inducible isoform of the enzyme and is induced in settings of inflammation (production of eicosanoids and kinins). Inhibition of COX-1 results in unwanted side effects, particularly those leading to gastric ulcer.  Adults: Since salicylic acid is available only in topical preparations, human data on toxicity have not been reported. However, the chinese medicated oil, which contains 67% methyl salicylate induced severe salicylate poisoning. Salicylic acid concentrations above 800 mg/L after 6 hours post exposure is severely toxic and may be lethal.  Children: Salicylate intoxication is often more serious in small children (1-4 years) than in older children, due to an early development of a metabolic acidosis rather than a respiratory alkalosis.  Teratogenicity: There is no evidence that moderate therapeutic doses of salicylates cause fetal damage in human beings; however, babies born to women who ingest salicylates for long periods may have a significantly reduced mass at birth. In addition, there is an increase in prenatal mortality, anemia, antepartum and postpartum haemorrhage, prolonged gestation and complicated deliveries. These effects occur when salicylates are administered during the third trimester, and thus its use during this period of pregnancy should be avoided. Interactions: Salicylic acid is highly protein-bound and may increase the unbound or free drug concentrations of other drugs such as hypoglycemics, anticoagulants and methotrexate(an antimetabolite chemotherapeutic drug), reaching toxic levels of these agents. The uricosuric activity of phenylbutazone, probenecid and sulphinpyrazone is strongly antagonized by salicylate and maybe completely diminished by small doses due to decreased tubular reabsorption of uric acid.  In a report of two cases of severe salicylate poisoning, asystole occurred shortly after the intravenous administration of diazepam.  Main adverse effects: Salicylic acid is a gastric irritant and because of the serious damage it may cause to the stomach lining, it has not been used orally. Topical use of salicylic acid may induce allergic contact dermatitis.  Salicylic acid may cause excessive drying and irritation in some people. Some individuals, especially asthmatics exhibit sensitivity to salicylates. Urticaria, angioneurotic        oedema, rhinitis, severe and even fatal paroxysmal, bronchospasm and dyspnea may occur.  Acute poisoning: Ingestion: Initial symptoms of salicylate poisoning may be nausea and vomiting, epigastric pain and occasionally haematemesis. Hyperventilation, sweating, flushing, fever, irritability, tinnitus and loss of hearing are the common clinical features of mild to moderate salicylate intoxication. In severe intoxication, hypoventilation, stupor, hallucination, convulsions, papilledema and coma particularly in children may occur. Metabolic acidosis, non-cardiogenic pulmonary edema, hepatotoxicity and cardiac dysrhythmias may also occur. Skin exposure: Severe poisoning has been reported as a result of the use of salicylic acid ointment for dermatological problems and in the treatment of skin burns.  Chronic poisoning: Ingestion: Chronic salicylate poisoning occurred as a result of excessive therapeutic administration over a period of 12 hours or more were reported. Metabolic pathways of salicylic acid become saturated and thus plasma concentration increases, producing toxicity. Small children are at particular risk of overdose especially when fever, sweating and tachycardia of salicylate intoxication are attributed to the underlying illness and are used as indications for increasing the dose.  Children may become intoxicated through breast milk. The presenting signs of chronic salicylate poisoning can include metabolic acidosis, hypoglycemia, lethargy, coma and fits.  Skin exposure: Chronic usage of salicylic acid and or methyl salicylate in skin and rheumatic diseases may cause intoxication through percutaneous absorption. Life threatening salicylate poisoning caused by percutaneous absorption of salicylic acid (10% ointment) in a 7-year old boy with ichthyosis vulgaris was reported. Application of teething gels containing salicylic acid induced intoxication.  Course, prognosis, cause of death: If a large quantity of a salicylate has been taken, nausea, vomiting, tinnitus, deafness, sweating, vasodilatation and hyperventilation may develop. Acid-base disturbances, electrolyte imbalance, non cardiogenic pulmonary edema, hypoventilation and hallucination, stupor, irritability, coma and convulsions particularly in children and older patients can proceed death. Loss of consciousness in adults is very rare and when occurs indicates poor prognosis. A review of 51 fatal cases of acute salicylate poisoning in Ontario during 1983 and 1984, discovered that salicylate was the most common cause of death, due to the ingestion of single drugs. Autopsy results showed that 50% of the patients had pulmonary abnormalities, 28% had lesions of the gastrointestinal tract, 18% had nervous system abnormalities and 25.6% had no pathological changes.  Mortality from chronic salicylate intoxication is considerably higher (25%) than from acute overdose (1 to 2%). Death is often due to sudden cardiac arrest or occasionally due to multiple complications following severe brain damage.  Systemic description of clinical effects: Cardiovascular: Sudden cardiovascular collapse is a recognized complication of salicylate poisoning. Two patients with severe salicylate intoxication developed asystole shortly after intravenous diazepam administration.  Transient myocardial dysfunction (global left ventricular shortening fraction of 23%) with pulmonary edema was found in a 13-month-old boy with salicylate poisoning. Respiratory: Non-cardiogenic pulmonary edema may occur in salicylate intoxicated patients who are over 30 years of age. Cigarette smoking, chronic salicylate ingestion, metabolic acidosis and the presence of neurological symptoms and signs on admission are strong risk factors for the subsequent development of pulmonary edema. The exact mechanism is unknown.  Three possible explanations are: (1) A direct toxic effect on pulmonary microvasculature; (2) Interaction with endogenous mediators such as prostaglandins; and (3) A central nervous system mediated effect. Neurological: Central Nervous System (CNS): In moderate to severe salicylate intoxication, CNS stimulation (irritability and convulsions) followed by depression, confusion, dizziness, delirium, psychosis, asterixis, stupor and coma occur usually when metabolic acidosis is the dominant acid-base abnormality. These features are thought to be due to reduced ionisation of salicylic acid and a shift of salicylate from the plasma into the brain.  Very high doses of salicylate have a depressive effect on the medulla and may cause central respiratory paralysis as well as sudden circulatory collapse, secondary to vasomotor depression.  Gastrointestinal: Ingestion of salicylate may result in epigastric discomfort, nausea and vomiting. Salicylic acid has more irritant effects on gastric mucosa than acetylsalicylic acid and thus has been withdrawn from oral administration for many years. Acetylsalicylic acid may also cause gastric irritation. Perforated peptic ulcer also occurs extremely rarely.  Hepatic: Hepatotoxicity may occur both after the therapeutic use of salicylate or following its over-dosage. Liver biopsy revealed acute hepatocellular necrosis with periportal inflammation and fatty changes in hepatocytes. Hepatic encephalopathy (Reye's Syndrome) has been reported in children taking aspirin for treatment of viral infections such as influenza. Urinary: Renal: Oliguria sometimes occurs, which is mostly due to dehydration. Renal failure may rarely occur in individuals without volume depletion, pre-existing renal and or systemic diseases.  Endocrine and reproductive systems: High doses of salicylate cause release of adrenaline from the adrenal medulla; this is thought to be partly responsible for the observed hypoglycaemia due to glycogenolysis that sometimes occurs. Large doses of salicylate stimulate corticosteroids secretion by the adrenal cortex.  Dermatological: Toxic epidermal necrosis in 13 patients associated with the use of salicylate have been reported.  Eye, ear, nose, throat: local effects: Eye: Transient myopia occurred in a patient following ingestion of acetylsalicylic acid. Bilateral subconjunctival hemorrhage has been reported. Ear: Tinnitus and hearing loss caused by salicylate in overdose are due to increased labyrinthine pressure. It may also be due to an effect on the hair cells of the cochlea. There is a relationship between the hearing loss and the plasma salicylate concentration.  Hematological: Salicylates prolong the bleeding time due to inhibition of collagen glucosyltransferase present in membranes of platelets. As a result, the adherence of platelets to connective tissue or collagen fibres is diminished. Salicylate overdose reduces the concentration of vitamin K-dependent coagulation factors, particularly prothrombin. Immunological: Salicylates have the capacity to supress a variety of antigen-antibody reactions such as: the inhibition of antibody production, of antigen-antibody aggregation and of antigen induced release of histamine. Salicylates also induce a non specific stabilization of capillary permeability during immunological insults. The concentration of salicylate causing this effect is high, and their relationship to the antirheumatic efficacy of salicylates is yet to be determined.  Metabolic: Acid-base disturbances: Respiratory alkalosis is more often observed in adults than in children.  Metabolic acidosis develops sooner in children than in adults.  However, in severe salicylate poisoning in adults, metabolic acidosis may also occur.  The acidosis is not therefore due to the presence of salicylic acid itself. The principle cause is competitive inhibition of NAD+-dependent dehydrogenases including lactate and oxoglutarate dehydrogenase and the other oxidative enzymes such as succinate dehydrogenase.  Salicylate enhances entry and oxidation of fatty acids in liver cells,leading to increased ketogenesis. Competitive inhibition of amino acyl-tRNA synthetases in pairs and amino acid incorporation results in amino-acidemia.  Dehydration and vasomotor depression results in poor renal perfusion and accumulation of sulfuric and phosphoric acids.  Fluid and electrolyte disturbances: Increased renal secretion of sodium, potassium and water accompanies loss of bicarbonate in the urine. Fluid loss also results from vomiting, sweating and hyperventilation. Dehydration is commonly associated with hypernatremia. (1) Oxidative Phosphorylation: The uncoupling of oxidative phosphorylation by salicylate results in the inhibition of a number of ATP-dependent reactions and an increase in O2 uptake and CO2 production. (2) Nitrogen compound metabolism: Toxic doses of salicylate cause a significant nitrogen imbalance, characterized by amino aciduria, though this is due in part to stimulation of active tubular absorption because of reduced ATP formation. Fat metabolism: Salicylates enhance oxidation of fatty acids in muscle, liver and other tissues together with a decrease of concentrations of plasma, free fatty acids, phospholipids and cholesterol.  Allergic reactions: Some people particularly asthmatics, exhibit marked sensitivity to salicylate, resulting in various reactions including urticaria and other skin eruptions, angioneuritis, oedema, rhinitis and severe and even fatal paroxysmal bronchospasm and dyspnea, hypotension, shock and syncope.  Despite the fact that the symptoms (such as the ones mentioned above) resemble anaphylaxis, this reaction does not appear to be immunological in nature. It may be a shunt towards the lipoxygenase pathway leading to an increased production of leukotrienes and other inflammatory mediators. Although, this hypothesis is unproved and it does not explain why only a minority of patients with asthma or other predisposing conditions display the reaction. Even so, results in a small number of patients suggest that blockade of 5-lipoxygenase with the drug zileuton may prevent symptoms and signs of aspirin intolerance.  Other clinical effects: The relationship between the use of salicylate and Reye's syndrome in children and adolescents (mostly 5 to 15 years) has been demonstrated by epidemiological studies.  Special risks: Salicylate intoxication may occur through placental transfer and breast milk.",
+      "Salicylic acid directly and irreversibly inhibits the activity of both types of cyclo-oxygenases (COX-1 and COX-2) to decrease the formation of precursors of prostaglandins and thromboxanes from arachidonic acid.  Salicylate may competitively inhibit prostaglandin formation. Salicylate's antirheumatic (nonsteroidal anti-inflammatory) actions are a result of its analgesic and anti-inflammatory mechanisms. Salicylic acid is a key ingredient in many skin-care products for the treatment of acne, psoriasis, calluses, corns, keratosis pilaris, and warts. It works by causing the cells of the epidermis to slough off more readily, preventing pores from clogging up, and allowing room for new cell growth. Because of its effect on skin cells, salicylic acid is used in several shampoos used to treat dandruff. Salicylic acid is also used as an active ingredient in gels which remove verrucas (plantar warts). Salicylic acid inhibits the oxidation of uridine-5-diphosphoglucose (UDPG) competitively with nicotinamide adenosine dinucleotide (NAD) and noncompetitively with UDPG. It also competitively inhibits the transferring of glucuronyl group of uridine-5-phosphoglucuronic acid (UDPGA) to the phenolic acceptor. The wound-healing retardation action of salicylates is probably due mainly to its inhibitory action on mucopolysaccharide synthesis.",
+    ],
+  },
+  'Toxicity Data': {
+    headings: 'Toxicity Data',
+    extractedString: [
+      'LC50 (mammals) \u003E 300mg/m3; [ChemIDplus]',
+      'Oral rat LD50: 891 mg/kg. Inhalation rat LC50: \u003E 900 mg/m3/1hr. Irritation: skin rabbit: 500 mg/24H mild. Eye rabbit: 100 mg severe.',
+    ],
+  },
+  Interactions: {
+    headings: 'Interactions',
+    extractedString: [
+      'PERCUTANEOUS ABSORPTION OF HYDROCORTISONE & SALICYLIC ACID WAS FOUND TO BE GREATER WHEN DIMETHYL SULFOXIDE WAS PRESENT. HOWEVER, EFFECT ON ... ACID WAS GREATER @ LOW PH VALUES, & POSITIVE ACTION OF DIMETHYL SULFOXIDE APPEARED TO BE DUE PARTLY TO ITS ABILITY TO INCR SOLUBILITY OF UN-IONIZED DRUG.',
+      'PENTOBARBITAL /SRP: CNS DEPRESSION/ IN MICE WAS ENHANCED AFTER PRE-TREATMENT WITH ... SALICYLIC ACID ... SALICYLIC ACID ... SHOWN TO DECR PLASMA-PROTEIN BINDING OF DIPHENYLHYDANTOIN IN MAN ... .',
+      'The anti-inflammatory properties of salicylates and prednisolone were investigated using inhibition of in vitro phytohemagglutinin-stimulated lymphocyte proliferation in human whole blood from healthy male and female subjects. Steroids and salicylates are used in conjunction for the treatment of inflammatory disorders such as rheumatoid arthritis and inhibit the proinflammatory transcription factor, NFKB, by different mechanisms. Data generated using various combinations of these drugs were analyzed using isobolograms and the universal surface response approach based on the Loewe additivity principle. The interaction between aspirin and prednisolone was mildly antagonistic while that between salicylic acid and prednisolone was modestly synergistic at therapeutic concentrations. Further, aspirin was slightly more potent in males, but the nature of the steroid-salicylate interaction was similar across genders. This study helps rationalize part of the beneficial effects of steroids and salicylates in treatment of inflammatory disorders.',
+      'In rats, magnesium deficiency caused a moderate hearing loss, measured by means of evoked potentials at 10 and 20 kHz, which was repaired after refeeding a normal diet. Application of 700 mg/kg salicylic acid or injection of 5 x 100 mg/kg gentamicin also caused a reversible hearing loss in normally fed rats. Treatment of zinc deficient rats with salicylic acid produced a stronger although reversible hearing loss than in normally fed salicylate treated rats. Treatment of magnesium-deficient rats with gentamicin induced a strong hearing loss that was nearly complete and irreversible in 9 of 25 rats.',
+      'For more Interactions (Complete) data for SALICYLIC ACID (7 total), please visit the HSDB record page.',
+    ],
+  },
+  'Hazard And Pictogram': {
+    hazardStatements: [
+      'H302 (98%): Harmful if swallowed [Warning Acute toxicity, oral]',
+      'H312 (45.3%): Harmful in contact with skin [Warning Acute toxicity, dermal]',
+      'H318 (50.2%): Causes serious eye damage [Danger Serious eye damage/eye irritation]',
+      'H319 (49.6%): Causes serious eye irritation [Warning Serious eye damage/eye irritation]',
+      'H302: Harmful if swallowed [Warning Acute toxicity, oral]',
+      'H318: Causes serious eye damage [Danger Serious eye damage/eye irritation]',
+      'H315: Causes skin irritation [Warning Skin corrosion/irritation]',
+      'H317: May cause an allergic skin reaction [Warning Sensitization, Skin]',
+      'H319: Causes serious eye irritation [Warning Serious eye damage/eye irritation]',
+      'H361: Suspected of damaging fertility or the unborn child [Warning Reproductive toxicity]',
+      'H370: Causes damage to organs [Danger Specific target organ toxicity, single exposure]',
+      'H372: Causes damage to organs through prolonged or repeated exposure [Danger Specific target organ toxicity, repeated exposure]',
+      'H402: Harmful to aquatic life [Hazardous to the aquatic environment, acute hazard]',
+      'H361d: Suspected of damaging the unborn child [Warning Reproductive toxicity]',
+    ],
+    pictograms: [
       {
-        "ReferenceNumber": 24,
-        "SourceName": "DrugBank",
-        "SourceID": "DB00126",
-        "Name": "Ascorbic acid",
-        "Description": "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information.",
-        "URL": "https://www.drugbank.ca/drugs/DB00126",
-        "LicenseNote": "Creative Common's Attribution-NonCommercial 4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/legalcode)",
-        "LicenseURL": "https://www.drugbank.ca/legal/terms_of_use",
-        "ANID": 3599608
+        URL: 'https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS05.svg',
+        Extra: 'Corrosive',
       },
       {
-        "ReferenceNumber": 25,
-        "SourceName": "DrugBank",
-        "SourceID": "DB14490",
-        "Name": "Ferrous ascorbate",
-        "Description": "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information.",
-        "URL": "https://www.drugbank.ca/drugs/DB14490",
-        "LicenseNote": "Creative Common's Attribution-NonCommercial 4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/legalcode)",
-        "LicenseURL": "https://www.drugbank.ca/legal/terms_of_use",
-        "ANID": 6889844
-      }
-    ]
-  }
-}
-*/
+        URL: 'https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS07.svg',
+        Extra: 'Irritant',
+      },
+      {
+        URL: 'https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS08.svg',
+        Extra: 'Health Hazard',
+      },
+    ],
+  },
+};

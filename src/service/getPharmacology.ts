@@ -1,14 +1,20 @@
 import axios, { AxiosResponse } from 'axios';
-import { PubChemResponse } from './extractPharmacology';
+import { PubChemResponse } from './extractString';
 
-async function getPharmacologyData(id: Number): Promise<PubChemResponse> {
+async function getPharmacologyData(id: Number, heading: string): Promise<PubChemResponse> {
   try {
     const URL = axios.create({
       baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
     });
 
     const response: AxiosResponse = await URL.get(
-      `${id}/JSON/?response_type=display&heading=Pharmacology`
+      // `${id}/JSON/?response_type=display&heading=Pharmacology` (og link)
+      // `${id}/JSON/?response_type=display&heading=Hazards%20Summary` (first test)
+      // `${id}/JSON/?response_type=display&heading=Effects%20of%20Long%20Term%20Exposure` (second test)
+      // `${id}/JSON/?response_type=display&heading=Human%20Toxicity%20Excerpts` (third test)
+      // `${id}/JSON/?response_type=display&heading=Antidote%20and%20Emergency%20Treatment` (forth test)
+      // `${id}/JSON/?response_type=display&heading=Storage%20Conditions` (fifth test)
+      `${id}/JSON/?response_type=display&heading=${heading}`
     );
 
     if (!response.data) {
