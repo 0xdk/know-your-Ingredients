@@ -4,8 +4,8 @@ import { Request, Response } from 'express';
 import getIdAndMolInfo from '../service/getIdAndMol';
 import getHazardAndPictogramData from '../service/getHazardnPictogram';
 import getPharmacologyData from '../service/getPharmacology';
-
-const data: { [key: string]: {} } = {};
+// wiki
+import fetchWikiInfo from '../service/wiki';
 
 // TS interfaces
 import { ExtractedData } from '../service/extractHazardnPictogram';
@@ -16,6 +16,7 @@ import { IDMolResponse } from '../service/getIdAndMol';
 import extractInformation from '../service/extractHazardnPictogram';
 import extractStringsFromResponse from '../service/extractString';
 
+const data: { [key: string]: {} | null } = {};
 /**
  *
  * @param req
@@ -24,8 +25,12 @@ import extractStringsFromResponse from '../service/extractString';
  */
 async function handleApiRequest(req: Request, res: Response) {
   try {
-    // const userInput: string = req.body.input;
-    const userInput: string = 'salicylic acid';
+    const userInput: string = req.body.input;
+
+    // getting element data from WIKI
+    const wikiData = await fetchWikiInfo(userInput);
+    data['wikiData'] = wikiData;
+
     if (!userInput) {
       res.status(400).json({ error: 'Input is required' });
       return;
@@ -38,6 +43,12 @@ async function handleApiRequest(req: Request, res: Response) {
     for (let heading of urlHeadings) {
       // getting element's safety and toxic Data
       let PharmacologyData = await getPharmacologyData(IdAndMol.Properties[0].CID, heading);
+
+      if (PharmacologyData == null) {
+        //* refactor this
+        data[heading] = null;
+        continue;
+      }
       // extracting element's safety and toxic Data
       data[heading] = extractStringsFromResponse(PharmacologyData);
     }
@@ -45,13 +56,16 @@ async function handleApiRequest(req: Request, res: Response) {
     // getting Hazard and Pictogram Data from PubChem DB
     const hazardAndPictogramData = await getHazardAndPictogramData(IdAndMol.Properties[0].CID);
     // extracting Hazard and Pictogram Data
-    const extractHazardAndPictogramData: ExtractedData = extractInformation(hazardAndPictogramData);
-    data['Hazard And Pictogram'] = extractHazardAndPictogramData;
+    if (hazardAndPictogramData !== null) {
+      const extractHazardAndPictogramData: ExtractedData =
+        extractInformation(hazardAndPictogramData);
+      data['Hazard And Pictogram'] = extractHazardAndPictogramData;
+    }
 
     res.json(data);
   } catch (error: any) {
-    console.error('Error handling API request:', error.message);
-    res.status(500).json({ error: 'Something went wrong' });
+    console.error('Error handling API requests:', error.message);
+    res.status(500).json({ error: error.message });
   }
 }
 

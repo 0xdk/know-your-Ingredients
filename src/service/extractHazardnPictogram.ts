@@ -52,6 +52,7 @@ function extractInformation(sections: Section[]): ExtractedData {
           info.Value.StringWithMarkup.forEach((markup) => {
             if (
               markup.String &&
+              // checks if the string is already exist
               // some() iterates through the extractedData.hazardStatements array to check duplicates,
               // worst-case complexity is O(m * n)(number of loops * length of hazardStatements[])
               !extractedData.hazardStatements.some((statement) => statement === markup.String)

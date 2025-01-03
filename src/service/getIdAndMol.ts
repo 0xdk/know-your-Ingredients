@@ -24,9 +24,15 @@ async function getIdAndMolInfo(elementName: string): Promise<IDMolResponse> {
   } catch (error: any) {
     // axios error
     if (axios.isAxiosError(error)) {
-      console.error('API Error:', error.response?.data || error.message);
+      if (error.response?.data?.Fault?.Code === 'PUGREST.NotFound') {
+        throw new Error(
+          'No result found for the provided input. Please check the spelling or try another name.'
+        );
+      }
+      console.error('API Error ID and Mol:', error.response?.data || error.message);
       throw new Error(`PubChem API Error: ${error.message}`);
     }
+
     // not axios error
     console.error('Error getting ID:', error.message);
     throw new Error(`Failed to get compound information: ${error.message}`);

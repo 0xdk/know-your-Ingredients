@@ -19,8 +19,8 @@ async function getHazardAndPictogramData(id: Number) {
   } catch (error: any) {
     // axios error
     if (axios.isAxiosError(error)) {
-      console.error('API Error:', error.response?.data || error.message);
-      throw new Error(`PubChem API Error: ${error.message}`);
+      console.error('API Error hazard and pictogram:', error.response?.data || error.message);
+      return null;
     }
     console.error('Unknown Error:', error.message);
     throw new Error('An unknown error occurred while fetching data');
