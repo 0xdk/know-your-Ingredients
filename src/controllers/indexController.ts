@@ -55,7 +55,7 @@ async function handleApiRequest(req: Request, res: Response) {
 
     // getting Hazard and Pictogram Data from PubChem DB
     const hazardAndPictogramData = await getHazardAndPictogramData(IdAndMol.Properties[0].CID);
-    // extracting Hazard and Pictogram Data
+    // extracting Hazard and Pictogram Dataas
     if (hazardAndPictogramData !== null) {
       const extractHazardAndPictogramData: ExtractedData =
         extractInformation(hazardAndPictogramData);
