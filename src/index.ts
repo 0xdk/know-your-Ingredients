@@ -11,7 +11,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('go to /get-info');
 });
 
-app.use(getInfoRoute);
+app.use('/api', getInfoRoute);
 
 app.listen(port, () => {
   console.log('listening on port ' + port);

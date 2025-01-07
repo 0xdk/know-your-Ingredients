@@ -1,13 +1,16 @@
 import axios, { AxiosResponse } from 'axios';
-import { PubChemResponse } from './extractString';
+import { PubChemResponse } from './extractSafetyAndToxicInfo';
 
-async function getPharmacologyData(id: Number, heading: string): Promise<PubChemResponse | null> {
+async function getPharmacologyData(
+  pubChemID: Number,
+  heading: string
+): Promise<PubChemResponse | null> {
   try {
     const URL = axios.create({
       baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
     });
     const response: AxiosResponse = await URL.get(
-      `${id}/JSON/?response_type=display&heading=${heading}`
+      `${pubChemID}/JSON/?response_type=display&heading=${heading}`
     );
 
     // Return the data if it's valid

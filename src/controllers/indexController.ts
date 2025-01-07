@@ -1,22 +1,27 @@
 import { Request, Response } from 'express';
-
-// API calls
+//API for PubChem ID and molecular info
 import getIdAndMolInfo from '../service/getIdAndMol';
-import getHazardAndPictogramData from '../service/getHazardnPictogram';
-import getPharmacologyData from '../service/getPharmacology';
-// wiki
+// Wikipedia API
 import fetchWikiInfo from '../service/wiki';
-
+// helper functions
+import safetyAndToxicInfoService from '../service/safety_and_Toxic/safetyAndToxicInfoService';
+import hazardService from '../service/hazard/hazardService';
 // TS interfaces
-import { ExtractedData } from '../service/extractHazardnPictogram';
-import urlHeadings from '../utils/urlHeadings';
+import { ExtractedData } from '../service/hazard/extractHazardnPictogram';
 import { IDMolResponse } from '../service/getIdAndMol';
 
-// functions to extract needed data from the response
-import extractInformation from '../service/extractHazardnPictogram';
-import extractStringsFromResponse from '../service/extractString';
-
-const data: { [key: string]: {} | null } = {};
+interface ApiResponse {
+  wikiData: string | null;
+  IdAndMol: Record<string, any> | null;
+  hazardAndPictogram: ExtractedData | null;
+  safetyAndToxicData: {} | null;
+}
+const data: ApiResponse = {
+  wikiData: null,
+  IdAndMol: null,
+  hazardAndPictogram: null,
+  safetyAndToxicData: null,
+};
 /**
  *
  * @param req
@@ -25,43 +30,31 @@ const data: { [key: string]: {} | null } = {};
  */
 async function handleApiRequest(req: Request, res: Response) {
   try {
-    const userInput: string = req.body.input;
-
-    // getting element data from WIKI
-    const wikiData = await fetchWikiInfo(userInput);
-    data['wikiData'] = wikiData;
-
+    // const userInput: string = req.body.input;
+    const userInput: string = 'selenium';
     if (!userInput) {
       res.status(400).json({ error: 'Input is required' });
       return;
     }
+    // getting element summery from WIKI
+    data.wikiData = await fetchWikiInfo(userInput);
     // getting PubChem ID
-    const IdAndMol: IDMolResponse = await getIdAndMolInfo(userInput);
-    data['ID And Mol'] = IdAndMol.Properties;
+    const IdAndMol: IDMolResponse | null = await getIdAndMolInfo(userInput);
 
-    // sending API request for all the needed headings
-    for (let heading of urlHeadings) {
-      // getting element's safety and toxic Data
-      let PharmacologyData = await getPharmacologyData(IdAndMol.Properties[0].CID, heading);
-
-      if (PharmacologyData == null) {
-        //* refactor this
-        data[heading] = null;
-        continue;
-      }
-      // extracting element's safety and toxic Data
-      data[heading] = extractStringsFromResponse(PharmacologyData);
+    if (IdAndMol) {
+      data.IdAndMol = IdAndMol.Properties;
+      const pubChemID = IdAndMol.Properties[0].CID;
+      data.safetyAndToxicData = await safetyAndToxicInfoService(pubChemID);
+      data.hazardAndPictogram = await hazardService(pubChemID);
     }
-
-    // getting Hazard and Pictogram Data from PubChem DB
-    const hazardAndPictogramData = await getHazardAndPictogramData(IdAndMol.Properties[0].CID);
-    // extracting Hazard and Pictogram Dataas
-    if (hazardAndPictogramData !== null) {
-      const extractHazardAndPictogramData: ExtractedData =
-        extractInformation(hazardAndPictogramData);
-      data['Hazard And Pictogram'] = extractHazardAndPictogramData;
+    // No data found or users must entered a wrong or miss spelled name
+    if (data.wikiData === null && data.IdAndMol === null) {
+      res.status(404).json({
+        error:
+          'No result found for the provided input. Please check the spelling or try another name.',
+      });
+      return;
     }
-
     res.json(data);
   } catch (error: any) {
     console.error('Error handling API requests:', error.message);

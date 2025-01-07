@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import indexController from '../../controllers/indexController';
 import * as getIdAndMol from '../../service/getIdAndMol';
-import * as getHazardAndPictogram from '../../service/getHazardnPictogram';
-import * as extractInfo from '../../service/extractHazardnPictogram';
+import * as getHazardAndPictogram from '../../service/hazard/getHazardnPictogram';
+import * as extractInfo from '../../service/hazard/extractHazardnPictogram';
 import { AxiosResponse } from 'axios';
 
 jest.mock('../../service/getIdAndMol');
@@ -55,9 +55,7 @@ describe('handleApiRequest', () => {
 
     // Mocking dependencies
     jest.spyOn(getIdAndMol, 'default').mockResolvedValue(mockId);
-    jest
-      .spyOn(getHazardAndPictogram, 'default')
-      .mockResolvedValue(mockHazardData as AxiosResponse);
+    jest.spyOn(getHazardAndPictogram, 'default').mockResolvedValue(mockHazardData as AxiosResponse);
     jest.spyOn(extractInfo, 'default').mockReturnValue(mockExtractedData);
 
     // Call the function
@@ -75,9 +73,7 @@ describe('handleApiRequest', () => {
   it('should handle errors and return 500', async () => {
     req.body = { input: 'Octocrylene' };
 
-    jest
-      .spyOn(getIdAndMol, 'default')
-      .mockRejectedValue(new Error('API Error'));
+    jest.spyOn(getIdAndMol, 'default').mockRejectedValue(new Error('API Error'));
 
     await indexController.handleApiRequest(req as Request, res as Response);
 
