@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosInstance } from 'axios';
 import { PubChemResponse } from './extractSafetyAndToxicInfo';
 
 async function getPharmacologyData(
@@ -8,26 +8,33 @@ async function getPharmacologyData(
   try {
     const URL = axios.create({
       baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
+      timeout: 10000,
     });
     const response: AxiosResponse = await URL.get(
       `${pubChemID}/JSON/?response_type=display&heading=${heading}`
     );
 
-    // Return the data if it's valid
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('API Error:', error.response?.data || error.message);
-      // Handle 404 Not Found specifically
-      if (error.response?.status === 404) {
-        console.error(`No data found for heading: ${heading}`);
-        return null; // Return null or handle it appropriately
-      }
-      // Handle other Axios errors
-      throw new Error(`PubChem API Error: ${error.message}`);
+    if (response.data) {
+      return response.data;
+    } else {
+      console.warn(`Empty data received for PubChem ID: ${pubChemID}, Heading: ${heading}`);
+      return null;
     }
-    console.error('Unknown Error:', error);
-    throw new Error('An unknown error occurred while fetching data');
+  } catch (error: any) {
+    // Handle 404 Not Found specifically
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 404) {
+        console.warn(`No data found for PubChem ID: ${pubChemID}, Heading: ${heading}`);
+        return null;
+      }
+      console.error('Axios Error:', error.response?.data || error.message);
+    } else {
+      // Handle unexpected errors
+      console.error('Unknown Error getting Safety and Toxic info:', error);
+    }
+
+    // Throwing the error allows it to be handled by the caller
+    throw new Error(`Failed to fetch data for PubChem ID: ${pubChemID}, Heading: ${heading}`);
   }
 }
 

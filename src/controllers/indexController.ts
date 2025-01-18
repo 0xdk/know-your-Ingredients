@@ -11,17 +11,11 @@ import { ExtractedData } from '../service/hazard/extractHazardnPictogram';
 import { IDMolResponse } from '../service/getIdAndMol';
 
 interface ApiResponse {
-  wikiData: string | null;
-  IdAndMol: Record<string, any> | null;
-  hazardAndPictogram: ExtractedData | null;
-  safetyAndToxicData: {} | null;
+  wikiData: string | undefined;
+  IdAndMol: Record<string, any> | string;
+  hazardsAndPictograms: ExtractedData | undefined;
+  safetyAndToxicData: {} | undefined;
 }
-const data: ApiResponse = {
-  wikiData: null,
-  IdAndMol: null,
-  hazardAndPictogram: null,
-  safetyAndToxicData: null,
-};
 /**
  *
  * @param req
@@ -30,31 +24,38 @@ const data: ApiResponse = {
  */
 async function handleApiRequest(req: Request, res: Response) {
   try {
-    // const userInput: string = req.body.input;
-    const userInput: string = 'selenium';
-    if (!userInput) {
-      res.status(400).json({ error: 'Input is required' });
-      return;
-    }
-    // getting element summery from WIKI
-    data.wikiData = await fetchWikiInfo(userInput);
-    // getting PubChem ID
-    const IdAndMol: IDMolResponse | null = await getIdAndMolInfo(userInput);
+    const userInput: string = req.body.input;
 
-    if (IdAndMol) {
-      data.IdAndMol = IdAndMol.Properties;
-      const pubChemID = IdAndMol.Properties[0].CID;
-      data.safetyAndToxicData = await safetyAndToxicInfoService(pubChemID);
-      data.hazardAndPictogram = await hazardService(pubChemID);
+    // getting element summery from WIKI
+    const wikiData = await fetchWikiInfo(userInput);
+    // getting PubChem ID
+    const IdAndMolResponse: IDMolResponse | null = await getIdAndMolInfo(userInput);
+
+    let IdAndMol;
+    let safetyAndToxicData;
+    let hazardsAndPictograms;
+    if (IdAndMolResponse) {
+      IdAndMol = IdAndMolResponse.Properties;
+      const pubChemID = IdAndMolResponse.Properties[0].CID;
+      safetyAndToxicData = await safetyAndToxicInfoService(pubChemID);
+      hazardsAndPictograms = await hazardService(pubChemID);
+    } else {
+      IdAndMol = 'No data found for this element in PubChem Data Base';
     }
     // No data found or users must entered a wrong or miss spelled name
-    if (data.wikiData === null && data.IdAndMol === null) {
+    if (wikiData === undefined && IdAndMol === null) {
       res.status(404).json({
         error:
           'No result found for the provided input. Please check the spelling or try another name.',
       });
       return;
     }
+    const data: ApiResponse = {
+      wikiData,
+      IdAndMol,
+      hazardsAndPictograms,
+      safetyAndToxicData,
+    };
     res.json(data);
   } catch (error: any) {
     console.error('Error handling API requests:', error.message);
