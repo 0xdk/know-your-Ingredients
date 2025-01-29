@@ -69,6 +69,7 @@ function extractInformation(sections: Section[]): ExtractedData {
               markup.Markup.forEach((entry) => {
                 if (entry.Extra && !seenPictograms.has(entry.Extra)) {
                   seenPictograms.add(entry.Extra); //To avoid duplicates
+
                   if (entry.URL) {
                     extractedData.pictograms.push({
                       URL: entry.URL,

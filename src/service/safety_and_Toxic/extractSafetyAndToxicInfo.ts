@@ -36,9 +36,9 @@ export interface extractedString {
 }
 
 /**
- * Extracts "Safety and Toxic" data from the PubChem API response.
+ * Extracts "Pharmacology" data from the PubChem API response.
  * @param response - Response form from the API request
- * @returns extracted data of PubChem API response.
+ * @returns extracted data of Pharmacology
  */
 
 function extractStringsFromResponse(response: PubChemResponse): extractedString {
@@ -47,35 +47,29 @@ function extractStringsFromResponse(response: PubChemResponse): extractedString 
     extractedString: [],
   };
 
-  // Copy sections from the response into a stack and process each section using a loop.
-  const stack: Section[] = [...response.Record.Section];
-  while (stack.length > 0) {
-    const currentSection = stack.pop()!;
-
-    // Process headings
-    if (currentSection.TOCHeading) {
-      strings.headings = currentSection.TOCHeading.trim();
-    }
-
-    // Process Information array
-    if (currentSection.Information) {
-      for (const info of currentSection.Information) {
+  function traverseSection(section: Section) {
+    if (section.Information) {
+      if (section.TOCHeading) {
+        // strings.headings.push(section.TOCHeading.trim());
+        strings.headings = section.TOCHeading.trim();
+      }
+      section.Information.forEach((info) => {
         if (info.Value?.StringWithMarkup) {
-          for (const markup of info.Value.StringWithMarkup) {
+          info.Value.StringWithMarkup.forEach((markup) => {
             if (markup.String) {
               strings.extractedString.push(markup.String.trim());
             }
-          }
+          });
         }
-      }
+      });
     }
 
-    // Push nested sections into the stack for making sure every section is processed
-    if (currentSection.Section) {
-      stack.push(...currentSection.Section);
+    if (section.Section) {
+      section.Section.forEach(traverseSection);
     }
   }
 
+  response.Record.Section.forEach(traverseSection);
   return strings;
 }
 
