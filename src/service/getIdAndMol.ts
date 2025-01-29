@@ -9,7 +9,7 @@ export interface IDMolResponse {
   }[];
 }
 
-async function getIdAndMolInfo(elementName: string): Promise<IDMolResponse> {
+async function getIdAndMolInfo(elementName: string): Promise<IDMolResponse | null> {
   try {
     const getCID = axios.create({
       baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug//compound/name/`,
@@ -18,16 +18,13 @@ async function getIdAndMolInfo(elementName: string): Promise<IDMolResponse> {
     const response: AxiosResponse = await getCID.get(
       `${elementName}/property/MolecularFormula,MolecularWeight,CanonicalSMILES/JSON`
     );
-    // console.log(response.data.PropertyTable.Properties[0]);
+    console.log(response.data.PropertyTable);
     return response.data.PropertyTable;
-    // return response.data;
   } catch (error: any) {
     // axios error
     if (axios.isAxiosError(error)) {
       if (error.response?.data?.Fault?.Code === 'PUGREST.NotFound') {
-        throw new Error(
-          'No result found for the provided input. Please check the spelling or try another name.'
-        );
+        return null;
       }
       console.error('API Error ID and Mol:', error.response?.data || error.message);
       throw new Error(`PubChem API Error: ${error.message}`);

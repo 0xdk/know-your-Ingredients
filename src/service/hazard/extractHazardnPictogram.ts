@@ -43,32 +43,32 @@ function extractInformation(sections: Section[]): ExtractedData {
     pictograms: [],
   };
 
-  sections.forEach((section) => {
-    // Checks if the section contains an "Information" key
+  const seenHazardStatements = new Set<string>();
+  const seenPictograms = new Set<string>();
+  const stack = [...sections]; // Use a stack to handle nested sections iteratively
+
+  while (stack.length > 0) {
+    const section = stack.pop()!; // Process the current section
+
     if (section.Information) {
       section.Information.forEach((info) => {
         // Extract "GHS Hazard Statements"
         if (info.Name === 'GHS Hazard Statements' && info.Value?.StringWithMarkup) {
           info.Value.StringWithMarkup.forEach((markup) => {
-            if (
-              markup.String &&
-              // checks if the string is already exist
-              // some() iterates through the extractedData.hazardStatements array to check duplicates,
-              // worst-case complexity is O(m * n)(number of loops * length of hazardStatements[])
-              !extractedData.hazardStatements.some((statement) => statement === markup.String)
-            ) {
+            if (markup.String && !seenHazardStatements.has(markup.String)) {
+              seenHazardStatements.add(markup.String); // Avoid duplicates
               extractedData.hazardStatements.push(markup.String);
             }
           });
         }
 
-        // Extract "Pictogram(s)" URLs
+        // Extract "Pictogram(s)" URLs from PubChem DB response
         if (info.Name === 'Pictogram(s)' && info.Value?.StringWithMarkup) {
           info.Value.StringWithMarkup.forEach((markup) => {
             if (markup.Markup) {
               markup.Markup.forEach((entry) => {
-                // checks if Pictogram is already stored, But complexity is O(n) or maybe O(m * n)
-                if (!extractedData.pictograms.some((p) => p.Extra === entry.Extra)) {
+                if (entry.Extra && !seenPictograms.has(entry.Extra)) {
+                  seenPictograms.add(entry.Extra); //To avoid duplicates
                   if (entry.URL) {
                     extractedData.pictograms.push({
                       URL: entry.URL,
@@ -83,14 +83,12 @@ function extractInformation(sections: Section[]): ExtractedData {
       });
     }
 
-    // Recursively search in nested sections
+    // Push nested sections onto the stack
     if (section.Section) {
-      const nestedData = extractInformation(section.Section);
-      extractedData.hazardStatements.push(...nestedData.hazardStatements);
-      extractedData.pictograms.push(...nestedData.pictograms);
+      stack.push(...section.Section);
     }
-  });
-
+  }
+  console.log(extractedData);
   return extractedData;
 }
 

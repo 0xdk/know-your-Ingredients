@@ -1,15 +1,28 @@
 import wiki from 'wikijs';
 
-async function fetchElementInfo(elementName: string): Promise<string | null> {
+/**
+ * Fetches a Summery for the given element name from Wikipedia
+ * @param elementName - the name of the element to search for
+ * @returns A promise that resolves to the summery string if found, or return undefined if not
+ */
+async function fetchElementInfo(elementName: string): Promise<string | undefined> {
   try {
-    // Initialize the Wikipedia API
-    const summary = await (await wiki().page(elementName)).summary();
+    const wikiInstance = wiki();
+    const page = await wikiInstance.page(elementName);
+    const summery = await page.summary();
 
-    return summary;
+    return summery;
   } catch (error: any) {
-    // * refactor this
-    console.error(`Error fetching Wikipedia data for ${elementName}:`, error.status);
-    return null;
+    if (error instanceof Error) {
+      console.error(`Wikipedia API Error for "${elementName}": ${error.message}`);
+    } else {
+      console.error(
+        `Unknown error occurred while fetching Wikipedia data for "${elementName}":`,
+        error
+      );
+    }
+    // returning null to the API
+    return undefined;
   }
 }
 export default fetchElementInfo;

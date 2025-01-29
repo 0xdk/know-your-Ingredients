@@ -10,23 +10,29 @@ describe('getIdAndMolInfo', () => {
     const mockResponse = {
       data: {
         PropertyTable: {
-          Properties: [{ CID: 12345 }],
+          Properties: [
+            {
+              CID: 31236,
+              MolecularFormula: 'C8H10O2',
+              MolecularWeight: '138.16',
+              CanonicalSMILES: 'C1=CC=C(C=C1)OCCO',
+            },
+          ],
         },
       },
     };
 
-    // Mock axios.get implementation
     mockedAxios.create.mockReturnThis();
     mockedAxios.get.mockResolvedValue(mockResponse);
 
-    const elementName = 'Octocrylene';
+    const elementName = 'Phenoxyethanol';
     const cid = await getIdAndMolInfo(elementName);
 
     // Assertions
     expect(mockedAxios.get).toHaveBeenCalledWith(
       `${elementName}/property/MolecularFormula,MolecularWeight,CanonicalSMILES/JSON`
     );
-    expect(cid).toBe(12345);
+    expect(cid).toEqual(mockResponse.data.PropertyTable);
   });
 
   it('should throw an error for an invalid element name', async () => {

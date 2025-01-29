@@ -1,4 +1,4 @@
-import getHazardAndPictogramData from '../../service/getHazardnPictogram';
+import getHazardAndPictogramData from '../../service/hazard/getHazardnPictogram';
 import axios from 'axios';
 
 jest.mock('axios');
