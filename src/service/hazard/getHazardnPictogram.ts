@@ -6,15 +6,12 @@ async function getHazardAndPictogramData(id: Number) {
       // https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/338/JSON/?response_type=display&heading=GHS+Classification
       baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
     });
-
     const searchResponse: AxiosResponse = await GHSinfo.get(
       `${id}/JSON/?response_type=display&heading=GHS+Classification`
     );
-
-    if (!searchResponse.data.Record) {
-      throw new Error('No Hazard or pictogram data in the the response ');
+    if (!searchResponse.data) {
+      return null;
     }
-    // console.log(searchResponse.data.Record.Section);
     return searchResponse.data.Record.Section;
   } catch (error: any) {
     // axios error

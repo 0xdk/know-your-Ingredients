@@ -10,6 +10,6 @@ function validateInput(req: Request, res: Response, next: Function) {
 }
 
 export const getInfoRoute = Router();
-getInfoRoute.get('/get-info', validateInput, indexController.handleApiRequest);
+getInfoRoute.post('/get-info', validateInput, indexController.handleApiRequest);
 
 export default getInfoRoute;

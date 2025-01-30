@@ -23,8 +23,8 @@ async function safetyAndToxicInfoService(pubChemID: Number) {
       }
     });
 
-    // Wait for all fetches to complete
-    // adding promise.all reduces the Response Time by 2 seconds
+    // Waits for all fetches to complete
+    // adding promise.all reduces the Response Time by ~3 seconds
     await Promise.all(fetchPromises);
     return safetyAndToxicData;
   } catch (error) {

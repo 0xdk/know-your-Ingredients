@@ -12,12 +12,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/supertest": "^6.0.2",
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "git-filter-repo": "^0.0.30",
-    "openai": "^4.80.0"
+    "openai": "^4.80.0",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

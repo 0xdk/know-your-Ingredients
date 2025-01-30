@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import getIdAndMolInfo from '../service/getIdAndMol';
 // Wikipedia API
 import fetchWikiInfo from '../service/wiki';
+// Open AI
 import fetchElementInfoFromOpenAI from '../service/openAi';
 // helper functions
 import safetyAndToxicInfoService from '../service/safety_and_Toxic/safetyAndToxicInfoService';
@@ -13,7 +14,7 @@ import { IDMolResponse } from '../service/getIdAndMol';
 
 interface ApiResponse {
   wikiData: string | undefined;
-  IdAndMol: Record<string, any> | string;
+  IdAndMol: Record<string, any> | null;
   hazardsAndPictograms: ExtractedData | undefined;
   safetyAndToxicData: {} | undefined;
   openAiResponse: string | null | undefined;
@@ -47,7 +48,7 @@ async function handleApiRequest(req: Request, res: Response) {
 
       hazardsAndPictograms = await hazardService(pubChemID);
     } else {
-      IdAndMol = 'No data found for this element in PubChem Data Base';
+      IdAndMol = null;
     }
     // No data found or users must entered a wrong or miss spelled name
     if (wikiData === undefined && IdAndMol === null) {

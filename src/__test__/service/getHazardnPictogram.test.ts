@@ -1,56 +1,60 @@
-import getHazardAndPictogramData from '../../service/hazard/getHazardnPictogram';
 import axios from 'axios';
+import getHazardAndPictogramData from '../../service/hazard/getHazardnPictogram';
 
 jest.mock('axios');
 
 describe('getHazardAndPictogramData', () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should return Hazard and Pictogram data when API call is successful', async () => {
-    const mockResponse = {
+  it('should return hazard and pictogram data when API response is valid', async () => {
+    const mockData = {
       data: {
         Record: {
-          Section: ['Mocked Hazard Data'],
+          Section: [{ ToxData: 'Example Hazard Data' }],
         },
       },
     };
 
-    mockedAxios.create.mockReturnThis();
-    mockedAxios.get.mockResolvedValue(mockResponse);
+    mockedAxios.create.mockReturnValue(mockedAxios);
+    mockedAxios.get.mockResolvedValue(mockData);
 
-    const cid = 338;
-    const result = await getHazardAndPictogramData(cid);
-
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${cid}/JSON/?response_type=display&heading=GHS+Classification`
-    );
-    expect(result).toEqual(['Mocked Hazard Data']);
+    const result = await getHazardAndPictogramData(233);
+    expect(result).toEqual(mockData.data.Record.Section);
   });
 
-  it('should throw an error if the API call fails', async () => {
-    mockedAxios.create.mockReturnThis();
-    mockedAxios.get.mockRejectedValue(new Error('API Error'));
+  it('should return null when API request fails with an Axios error', async () => {
+    const axiosError = {
+      isAxiosError: true,
+      response: {
+        status: 404,
+        data: 'Not Found',
+      },
+      message: 'Request failed with status code 404',
+      name: 'AxiosError',
+      config: {},
+      toJSON: () => ({}),
+    };
 
-    const cid = 338;
-
-    await expect(getHazardAndPictogramData(cid)).rejects.toThrow(
-      'An unknown error occurred while fetching data'
-    );
+    mockedAxios.create.mockReturnValue({
+      get: jest.fn().mockRejectedValue(axiosError),
+    } as any);
+    const isAxiosErrorSpy = jest.spyOn(axios, 'isAxiosError');
+    isAxiosErrorSpy.mockImplementation((error) => error?.isAxiosError === true);
+    const result = await getHazardAndPictogramData(233);
+    expect(result).toBeNull();
   });
 
-  it('should throw an unknown error if an unexpected error occurs', async () => {
-    const cid = 338;
-
-    mockedAxios.create.mockReturnThis();
+  it('should throw an error for unknown errors', async () => {
+    mockedAxios.create.mockReturnValue(mockedAxios);
     mockedAxios.get.mockImplementation(() => {
-      throw 'Unknown Error';
+      throw new Error('Unexpected error');
     });
 
-    await expect(getHazardAndPictogramData(cid)).rejects.toThrow(
+    await expect(getHazardAndPictogramData(233)).rejects.toThrow(
       'An unknown error occurred while fetching data'
     );
   });

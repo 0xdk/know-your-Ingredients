@@ -16,10 +16,10 @@ For the element "${elementName}", provide the following details:
 5.Whether this element is banned in any country, and if so, list the countries.  
 6.Can kids, older people, or pregnant women safely use or interact with this element?  
 7.Toxicity and hazard information about this element.  
-Respond with one or more of theseparagraphs. with simple English`;
+Respond with one or more of these paragraphs. with simple English`;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o-mini-2024-07-18',
       messages: [
         {
           role: 'developer',
