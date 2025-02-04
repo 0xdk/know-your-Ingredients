@@ -1,6 +1,7 @@
 import getSafetyAndToxicInfo from './getSafetyAndToxicInfo';
 import extractStringsFromResponse from './extractSafetyAndToxicInfo';
 import urlHeadings from '../../utils/urlHeadings';
+import { AxiosInstance } from 'axios';
 
 /**
  * Fetches safety and toxicity information for a given PubChem ID.
@@ -8,12 +9,12 @@ import urlHeadings from '../../utils/urlHeadings';
  * @param pubChemID - The PubChem compound ID to fetch data for.
  * @returns A map of headings to their extracted data or `undefined` if not available.
  */
-async function safetyAndToxicInfoService(pubChemID: Number) {
+async function safetyAndToxicInfoService(pubChemID: Number, URL: AxiosInstance) {
   const safetyAndToxicData: { [key: string]: {} | undefined } = {};
   try {
     // Fetch data for each heading
     const fetchPromises = urlHeadings.map(async (heading) => {
-      const response = await getSafetyAndToxicInfo(pubChemID, heading);
+      const response = await getSafetyAndToxicInfo(pubChemID, heading, URL);
 
       if (response) {
         safetyAndToxicData[heading] = extractStringsFromResponse(response);

@@ -1,12 +1,15 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosInstance } from 'axios';
 
-async function getHazardAndPictogramData(id: Number) {
+/**
+ *Fetches Hazard and pictogram data from PubChem DB for given ID
+ *
+ * @param id The PubChem compound ID to fetch info from PubChem API
+ * @param URL Base URL with Axios instance configured
+ * @returns the fetched hazard and pictogram data or return null if no data found
+ */
+async function getHazardAndPictogramData(id: Number, URL: AxiosInstance) {
   try {
-    const GHSinfo = axios.create({
-      // https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/338/JSON/?response_type=display&heading=GHS+Classification
-      baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
-    });
-    const searchResponse: AxiosResponse = await GHSinfo.get(
+    const searchResponse: AxiosResponse = await URL.get(
       `${id}/JSON/?response_type=display&heading=GHS+Classification`
     );
     if (!searchResponse.data) {

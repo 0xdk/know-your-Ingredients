@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import axios from 'axios';
 //API for PubChem ID and molecular info
 import getIdAndMolInfo from '../service/getIdAndMol';
 // Wikipedia API
@@ -39,14 +40,20 @@ async function handleApiRequest(req: Request, res: Response) {
     let IdAndMol;
     let safetyAndToxicData;
     let hazardsAndPictograms;
+    // Base URL for PumChem API request
+    const URL = axios.create({
+      baseURL: `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/`,
+      timeout: 10000,
+    });
+
     if (IdAndMolResponse) {
       IdAndMol = IdAndMolResponse.Properties;
       const pubChemID = IdAndMolResponse.Properties[0].CID;
       // getting safety and toxicity data from PubChem DB with pubChem ID
-      safetyAndToxicData = await safetyAndToxicInfoService(pubChemID);
+      safetyAndToxicData = await safetyAndToxicInfoService(pubChemID, URL);
       // getting hazard and pictograms from PubChem DB
 
-      hazardsAndPictograms = await hazardService(pubChemID);
+      hazardsAndPictograms = await hazardService(pubChemID, URL);
     } else {
       IdAndMol = null;
     }
